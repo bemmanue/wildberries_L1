@@ -2,17 +2,19 @@ package main
 
 import "fmt"
 
-func setBit(n int64, pos int) int64 {
-	n |= 1 << pos // | - bitwise OR
+// setBit устанавливает i-ый бит в 1
+func setBit(n int64, i int) int64 {
+	n |= 1 << i // | - bitwise OR
 
 	return n
 }
 
-func clearBit(n int64, pos int) int64 {
+// clearBit устанавливает i-ый бит в 0
+func clearBit(n int64, i int) int64 {
 	var mask int64
 
-	mask = ^(1 << pos) // ^ - bitwise NOT
-	n &= mask          // & - bitwise AND
+	mask = ^(1 << i) // ^ - bitwise NOT
+	n &= mask        // & - bitwise AND
 
 	return n
 }

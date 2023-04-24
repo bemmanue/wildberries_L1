@@ -5,17 +5,20 @@ import (
 	"sync"
 )
 
+// Data структура, хранящая map и mutex для конкурентного доступа к map
 type Data struct {
-	mutex sync.Mutex
 	data  map[int]int
+	mutex sync.Mutex
 }
 
+// NewData конструктор Data
 func NewData() *Data {
 	return &Data{
 		data: map[int]int{},
 	}
 }
 
+// Write с помощью mutex блокирует доступ к map другим горутинам
 func (msm *Data) Write(key int) {
 	msm.mutex.Lock()
 	defer msm.mutex.Unlock()
@@ -30,9 +33,10 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(n)
 
+	// запускаем горутины, записывающие в канал
 	for i := 0; i < n; i++ {
 		go func(key int) {
-			data.Write(key)
+			data.Write(key) // обеспечивает безопасную операцию в конкурентной среде
 			wg.Done()
 		}(i)
 	}
