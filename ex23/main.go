@@ -9,7 +9,8 @@ func remove(arr []int, i int) []int {
 		return arr
 	}
 
-	return append(arr[:i], arr[i+1:]...)
+	copy(arr[i:], arr[i+1:])
+	return arr[:len(arr)-1]
 }
 
 func main() {
