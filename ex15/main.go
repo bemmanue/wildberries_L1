@@ -40,7 +40,7 @@ func someFunc() {
 	v1 := []rune(createHugeString(1 << 10))
 	v2 := make([]rune, 100)
 
-	copy(v2, v1[:4])
+	copy(v2, v1[:100]) // копируем данные в новую область памяти
 
 	justString = string(v2)
 }

@@ -5,11 +5,13 @@ import (
 	"sync"
 )
 
+// Counter структура, которая хранит значение счетчика и mutex, ограничивающий доступ к нему
 type Counter struct {
-	mutex sync.Mutex
 	value int
+	mutex sync.Mutex
 }
 
+// Increase блокирует доступ к счетчику другим горутинам во время изменения его значения
 func (c *Counter) Increase() {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -18,9 +20,10 @@ func (c *Counter) Increase() {
 }
 
 func main() {
-	var counter Counter
-	var wg sync.WaitGroup
+	var counter Counter   // счетчик
+	var wg sync.WaitGroup // структура для ожидания завешения горутин
 
+	// запускаем горутины, увеличивающие значение счетчика
 	for i := 0; i < 5; i++ {
 		wg.Add(1)
 		go func(c *Counter) {
@@ -31,7 +34,9 @@ func main() {
 		}(&counter)
 	}
 
+	// ожидаем завершения горутин
 	wg.Wait()
 
+	// проверяем значение счетчика
 	fmt.Println(counter.value)
 }

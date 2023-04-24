@@ -5,6 +5,7 @@ import (
 	"reflect"
 )
 
+// checkType с помощью пакета reflect получает и возвращает тип переменной
 func checkType(i interface{}) reflect.Type {
 	return reflect.TypeOf(i)
 }

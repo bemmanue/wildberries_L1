@@ -4,16 +4,18 @@ import (
 	"fmt"
 )
 
+// quickSort возвращает сортированный срез. Производит быструю сортировку за O(n^2)
 func quickSort(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
 	}
 
-	var less []int
-	var greater []int
+	point := arr[0] // опорная точка
 
-	point := arr[0]
+	var less []int    // для значений, которые меньше значения опорной точки
+	var greater []int // для значений, которые больше значения опорной точки
 
+	// в цикле проходим по всем элементам, кроме первого и сортируем значения на две группы: less и greater
 	for i := range arr[1:] {
 		if arr[i] <= point {
 			less = append(less, arr[i])
@@ -22,6 +24,7 @@ func quickSort(arr []int) []int {
 		}
 	}
 
+	// с помощью рекурсии вычисляем подмассивы и складываем результат
 	arr = append(quickSort(less), point)
 	arr = append(arr, quickSort(greater)...)
 
